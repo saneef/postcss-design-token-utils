@@ -9,23 +9,23 @@ async function run(tokens, input, options) {
 	});
 }
 
-test("Skip custom properties when called outside of a rule", async (t) => {
+test("Skips when applied outside of a rule", async (t) => {
 	const tokens = { color: { accent: "#ff0" } };
-	const input = `@process-design-tokens "custom-properties";`;
+	const input = `@design-token-utils (custom-properties);`;
 	const res = await run(tokens, input);
-	t.is(res.css, `@process-design-tokens "custom-properties";`);
+	t.is(res.css, `@design-token-utils (custom-properties);`);
 });
 
 test("Generates custom properties", async (t) => {
 	const tokens = { color: { accent: "#ff0", primary: "#0ff" } };
-	const input = `:root { @process-design-tokens "custom-properties"; }`;
+	const input = `:root { @design-token-utils (custom-properties); }`;
 	const res = await run(tokens, input);
 	t.is(res.css, ":root{--color-accent:#ff0;--color-primary:#0ff}");
 });
 
 test("Generates with number values", async (t) => {
 	const tokens = { leading: { s: 1.1, m: 1.5, lg: 1.7 } };
-	const input = `:root { @process-design-tokens "custom-properties"; }`;
+	const input = `:root { @design-token-utils (custom-properties); }`;
 	const res = await run(tokens, input);
 	t.is(res.css, ":root{--leading-s:1.1;--leading-m:1.5;--leading-lg:1.7}");
 });
@@ -40,7 +40,7 @@ test("Generates with array values", async (t) => {
 			"sans-serif",
 		],
 	};
-	const input = `:root { @process-design-tokens "custom-properties"; }`;
+	const input = `:root { @design-token-utils (custom-properties); }`;
 	const res = await run(tokens, input);
 	t.is(
 		res.css,
@@ -48,12 +48,12 @@ test("Generates with array values", async (t) => {
 	);
 });
 
-test("Generates with prefix options", async (t) => {
+test("Generates with prefix properties", async (t) => {
 	const tokens = {
 		color: { accent: "#ff0" },
 		fontSize: { "step-0": "1rem", "step-1": "2rem" },
 	};
-	const input = `:root { @process-design-tokens "custom-properties"; }`;
+	const input = `:root { @design-token-utils (custom-properties); }`;
 	const res = await run(tokens, input, {
 		customProperties: [
 			{ id: "color", prefix: "c" },
