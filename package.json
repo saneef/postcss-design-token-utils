@@ -1,0 +1,21 @@
+{
+	"name": "design-token-utils",
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"test": "ava"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"just-kebab-case": "^4.2.0"
+	},
+	"devDependencies": {
+		"ava": "^6.1.2",
+		"cssnano": "^6.1.2",
+		"postcss": "^8.4.38"
+	}
+}
