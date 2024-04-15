@@ -1,2 +1,1 @@
-import plugin from "./lib/design-token-utils.js";
-export default plugin;
+module.exports = require("./lib/design-token-utils.js");

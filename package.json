@@ -1,30 +1,29 @@
 {
-	"name": "postcss-design-token-utils",
-	"version": "0.0.0",
-	"description": "PostCSS plugin to convert design tokens to CSS custom properties and utility classes.",
-	"type": "module",
-	"main": "index.js",
-	"scripts": {
-		"test": "ava"
-	},
-	"keywords": [
-		"postcss-plugin",
-		"design-tokens",
-		"utility-class",
-		"atomic-css",
-		"postcss"
-	],
-	"author": "Saneef Ansari <hello@saneef.com> (https://saneef.com/)",
-	"license": "MIT",
-	"dependencies": {
-		"just-kebab-case": "^4.2.0"
-	},
-	"devDependencies": {
-		"ava": "^6.1.2",
-		"cssnano": "^6.1.2",
-		"postcss": "^8.4.38"
-	},
-	"peerDependencies": {
-		"postcss": "^8.0.0"
-	}
+  "name": "postcss-design-token-utils",
+  "version": "0.0.0",
+  "description": "PostCSS plugin to convert design tokens to CSS custom properties and utility classes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "postcss-plugin",
+    "design-tokens",
+    "utility-class",
+    "atomic-css",
+    "postcss"
+  ],
+  "author": "Saneef Ansari <hello@saneef.com> (https://saneef.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "just-kebab-case": "^4.2.0"
+  },
+  "devDependencies": {
+    "ava": "^6.1.2",
+    "cssnano": "^6.1.2",
+    "postcss": "^8.4.38"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
+  }
 }
