@@ -104,3 +104,30 @@ test("Generates properties from a group", async (t) => {
     ":root{--font-family-base:sans-serif;--font-family-mono:monospace}",
   );
 });
+
+test("Generates custom properties from nested tokens", async (t) => {
+  const tokens = {
+    color: {
+      gray: { 100: "#f1f5f9", 800: "#1e293b" },
+    },
+  };
+  const input = `:root { @design-token-utils (custom-properties); }`;
+  const res = await run(tokens, input, {
+    customProperties: [{ id: "color.gray", prefix: "shade" }],
+  });
+  t.is(res.css, ":root{--shade-100:#f1f5f9;--shade-800:#1e293b}");
+});
+
+test("Generates custom properties by group from nested tokens", async (t) => {
+  const tokens = {
+    color: {
+      gray: { 100: "#f1f5f9", 800: "#1e293b" },
+      primary: { 100: "#dcfce7", 800: "#166534" },
+    },
+  };
+  const input = `:root { @design-token-utils (custom-properties: shades); }`;
+  const res = await run(tokens, input, {
+    customProperties: [{ id: "color.gray", group: "shades" }],
+  });
+  t.is(res.css, ":root{--color-gray-100:#f1f5f9;--color-gray-800:#1e293b}");
+});
