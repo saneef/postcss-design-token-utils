@@ -35,11 +35,11 @@ test("Generate with prefix", async (t) => {
   );
 });
 
-test("Generate viewport variants", async (t) => {
+test("Generate with responsive variants", async (t) => {
   const tokens = { color: { accent: "#ff0" } };
   const input = `@design-token-utils (utility-classes);`;
   const options = {
-    viewports: {
+    breakpoints: {
       sm: "320px",
       md: "640px",
     },
@@ -48,7 +48,7 @@ test("Generate viewport variants", async (t) => {
         id: "color",
         prefix: "text",
         property: "color",
-        viewportVariants: true,
+        responsiveVariants: true,
       },
     ],
   };
@@ -63,7 +63,7 @@ test("Generate viewport variants with colon separated classes", async (t) => {
   const tokens = { color: { accent: "#ff0" } };
   const input = `@design-token-utils (utility-classes);`;
   const options = {
-    viewports: {
+    breakpoints: {
       sm: "320px",
       md: "640px",
     },
@@ -72,7 +72,7 @@ test("Generate viewport variants with colon separated classes", async (t) => {
         id: "color",
         prefix: "text",
         property: "color",
-        viewportVariants: true,
+        responsiveVariants: true,
       },
     ],
     mediaQueryClassSeparator: ":",
