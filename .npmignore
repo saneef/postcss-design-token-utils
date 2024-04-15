@@ -1,0 +1,7 @@
+.editorconfig
+.eslintcache
+.eslintrc.js
+.github/
+.gitattributes
+test
+lib/**/*.test.js
