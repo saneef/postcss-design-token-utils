@@ -11,7 +11,7 @@ async function run(tokens, input, options) {
 
 test("Generate utility classes", async (t) => {
   const tokens = { color: { accent: "#ff0", dark: "#111" } };
-  const input = `@design-token-utils "utility-classes";`;
+  const input = `@design-token-utils (utility-classes);`;
   const options = {
     utilityClasses: [{ id: "color", property: "color" }],
   };
@@ -24,7 +24,7 @@ test("Generate utility classes", async (t) => {
 
 test("Generate with prefix", async (t) => {
   const tokens = { color: { accent: "#ff0", dark: "#111" } };
-  const input = `@design-token-utils "utility-classes";`;
+  const input = `@design-token-utils (utility-classes);`;
   const options = {
     utilityClasses: [{ id: "color", prefix: "text", property: "color" }],
   };
@@ -37,7 +37,7 @@ test("Generate with prefix", async (t) => {
 
 test("Generate viewport variants", async (t) => {
   const tokens = { color: { accent: "#ff0" } };
-  const input = `@design-token-utils "utility-classes";`;
+  const input = `@design-token-utils (utility-classes);`;
   const options = {
     viewports: {
       sm: "320px",
@@ -61,7 +61,7 @@ test("Generate viewport variants", async (t) => {
 
 test("Generate viewport variants with colon separated classes", async (t) => {
   const tokens = { color: { accent: "#ff0" } };
-  const input = `@design-token-utils "utility-classes";`;
+  const input = `@design-token-utils (utility-classes);`;
   const options = {
     viewports: {
       sm: "320px",
