@@ -58,3 +58,28 @@ test("Generate viewport variants", async (t) => {
     `.text-accent{color:var(--color-accent)}@media (min-width:320px){.sm-text-accent{color:var(--color-accent)}}@media (min-width:640px){.md-text-accent{color:var(--color-accent)}}`,
   );
 });
+
+test("Generate viewport variants with colon separated classes", async (t) => {
+  const tokens = { color: { accent: "#ff0" } };
+  const input = `@design-token-utils "utility-classes";`;
+  const options = {
+    viewports: {
+      sm: "320px",
+      md: "640px",
+    },
+    utilityClasses: [
+      {
+        id: "color",
+        prefix: "text",
+        property: "color",
+        viewportVariants: true,
+      },
+    ],
+    mediaQueryClassSeparator: ":",
+  };
+  const res = await run(tokens, input, options);
+  t.is(
+    res.css,
+    `.text-accent{color:var(--color-accent)}@media (min-width:320px){.sm:text-accent{color:var(--color-accent)}}@media (min-width:640px){.md:text-accent{color:var(--color-accent)}}`,
+  );
+});
