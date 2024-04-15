@@ -1,15 +1,21 @@
 {
-	"name": "design-token-utils",
-	"version": "1.0.0",
-	"description": "",
+	"name": "postcss-design-token-utils",
+	"version": "0.0.1",
+	"description": "PostCSS plugin to covert design tokens to CSS custom properties and utility classes. ",
 	"type": "module",
 	"main": "index.js",
 	"scripts": {
 		"test": "ava"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"keywords": [
+		"postcss-plugin",
+		"design-tokens",
+		"utility-class",
+		"atomic-css",
+		"postcss"
+	],
+	"author": "Saneef Ansari <hello@saneef.com> (https://saneef.com/)",
+	"license": "MIT",
 	"dependencies": {
 		"just-kebab-case": "^4.2.0"
 	},
