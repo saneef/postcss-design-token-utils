@@ -62,3 +62,45 @@ test("Generates with prefix properties", async (t) => {
 	});
 	t.is(res.css, ":root{--c-accent:#ff0;--step-0:1rem;--step-1:2rem}");
 });
+
+test("Generates ungrouped properties when no groups specified", async (t) => {
+	const tokens = {
+		color: { accent: "#ff0" },
+		fontFamily: { base: "sans-serif", mono: "monospace" },
+	};
+	const input = `:root { @design-token-utils (custom-properties); }`;
+	const res = await run(tokens, input, {
+		customProperties: [{ id: "color" }, { id: "fontFamily", group: "font" }],
+	});
+	t.is(res.css, ":root{--color-accent:#ff0}");
+});
+
+test("Generates all groups", async (t) => {
+	const tokens = {
+		color: { accent: "#ff0" },
+		fontFamily: { base: "sans-serif", mono: "monospace" },
+	};
+	const input = `:root { @design-token-utils (custom-properties: all); }`;
+	const res = await run(tokens, input, {
+		customProperties: [{ id: "color" }, { id: "fontFamily", group: "font" }],
+	});
+	t.is(
+		res.css,
+		":root{--color-accent:#ff0;--font-family-base:sans-serif;--font-family-mono:monospace}",
+	);
+});
+
+test("Generates properties from a group", async (t) => {
+	const tokens = {
+		color: { accent: "#ff0" },
+		fontFamily: { base: "sans-serif", mono: "monospace" },
+	};
+	const input = `:root { @design-token-utils (custom-properties: font); }`;
+	const res = await run(tokens, input, {
+		customProperties: [{ id: "color" }, { id: "fontFamily", group: "font" }],
+	});
+	t.is(
+		res.css,
+		":root{--font-family-base:sans-serif;--font-family-mono:monospace}",
+	);
+});
