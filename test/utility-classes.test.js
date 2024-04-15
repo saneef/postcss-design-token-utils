@@ -1,6 +1,7 @@
 import test from "ava";
 import cssnano from "cssnano";
 import postcss from "postcss";
+import sinon from "sinon";
 import plugin from "../index.js";
 
 async function run(tokens, input, options) {
@@ -58,3 +59,17 @@ test("Generate viewport variants", async (t) => {
 		`.text-accent{color:var(--color-accent)}@media (min-width:320px){.sm-text-accent{color:var(--color-accent)}}@media (min-width:640px){.md-text-accent{color:var(--color-accent)}}`,
 	);
 });
+
+test.serial(
+	"Show warning when `utilityClasses` option is missing",
+	async (t) => {
+		const tokens = { color: { accent: "#ff0", dark: "#111" } };
+		const input = `@design-token-utils "utility-classes";`;
+
+		const warn = sinon.spy(console, "warn");
+
+		const res = await run(tokens, input);
+		t.true(warn.called);
+		warn.restore();
+	},
+);
