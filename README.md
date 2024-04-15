@@ -166,3 +166,182 @@ With the above code, we have reassigned the properties from `:root` with a new s
 Similarly, you can invoke at-rule within a class selector (`.dark {}`) or a data attribute (`[data-theme="dark"] {}`).
 This is handy for generating scheme or theme base properties.
 
+### Utility classes
+
+> [!IMPORTANT]
+> The utility classes are based on CSS custom properties from design tokens.
+> Make sure custom properties are included and have the same prefix.
+
+The generation of **utility classes is opt-in** based on token `id`.
+Using the `utilityClasses` option, we need to provide an array of object with `id`, `property`, and optionally `prefix` for class generation.
+Then, we can use at-rule `@design-token-utils (utility-classes);` to insert in the stylesheet.
+
+```js
+// postcss.config.js
+
+const tokens = {
+  color: {
+    accent: "#16a34a",
+    dark: "#111827",
+    light: "#f3f4f6",
+  },
+};
+
+const config = {
+  plugins: [
+    postcssDesignTokenUtils(tokens, {
+      utilityClasses: [
+        {
+          id: "color",
+          property: "background-color",
+          prefix: "bg",
+        },
+      ],
+    }),
+  ],
+};
+```
+
+Using the `utilityClasses` option, we pick one set of token using `id: "color"`.
+The CSS `property` is set to `background-color` and the class name `prefix` to `bg`.
+If we don't set `prefix` is not set, the `id` will be used as a prefix, which may be useless for most of the cases.
+
+Then, we can use at-rule `@design-token-utils (utility-classes);` to insert the classes in the stylesheet.
+
+```css
+/* source.css */
+:root {
+  @design-token-utils (custom-properties);
+}
+
+@design-token-utils (utility-classes);
+```
+
+Once built, this is the output CSS file.
+
+```css
+/* output.css */
+:root {
+  --color-accent: #16a34a;
+  --color-dark: #111827;
+  --color-light: #f3f4f6;
+}
+.bg-accent {
+  background-color: var(--color-accent);
+}
+.bg-dark {
+  background-color: var(--color-dark);
+}
+.bg-light {
+  background-color: var(--color-light);
+}
+```
+
+#### Responsive class variants
+
+It is possible to generate responsive modifier class names.
+We need to provide breakpoints and specify which classes need responsive variants.
+
+```js
+// postcss.config.js
+
+// tokens object from previous example
+
+const config = {
+  plugins: [
+    postcssDesignTokenUtils(tokens, {
+      breakpoints: {
+        sm: "320px", // 👈 Added break points
+        md: "640px",
+      },
+      utilityClasses: [
+        {
+          id: "color",
+          property: "background-color",
+          prefix: "bg",
+          responsiveVariants: true, // 👈 Sets `responsiveVariants` to `true`
+        },
+      ],
+    }),
+  ],
+};
+```
+
+In the previous example, if we provide breakpoints and set `responsiveVariants: true` for token ID, we get below output.
+
+```css
+/* output.css */
+:root {
+  --color-accent: #16a34a;
+  --color-dark: #111827;
+  --color-light: #f3f4f6;
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+.bg-dark {
+  background-color: var(--color-dark);
+}
+.bg-light {
+  background-color: var(--color-light);
+}
+@media (min-width: 320px) {
+  .sm-bg-accent {
+    background-color: var(--color-accent);
+  }
+  .sm-bg-dark {
+    background-color: var(--color-dark);
+  }
+  .sm-bg-light {
+    background-color: var(--color-light);
+  }
+}
+@media (min-width: 640px) {
+  .md-bg-accent {
+    background-color: var(--color-accent);
+  }
+  .md-bg-dark {
+    background-color: var(--color-dark);
+  }
+  .md-bg-light {
+    background-color: var(--color-light);
+  }
+}
+```
+
+You can use `classResponsivePrefixSeparator` property (default: `-`) in `options` to change the separator between responsive prefix and class name.
+To generate Tailwind style responsive modifiers, set `mediaQueryClassSeparator: ":"`.
+_Beware if you are using purgecss.
+Class names with some special character are not considered.
+(See note)[https://purgecss.com/extractors.html#default-extractor]._
+
+## Nested tokens
+
+Even if your token object is nested, this plugin can generate CSS custom properties and class names.
+The ID will be generated nesting ID (key) separated by period (`.`).
+Example: The `gray` tokens can be target using `color.gray`.
+
+```js
+// postcss.config.css
+const token = {
+  color: {
+    gray: { 100: "#f1f5f9", 800: "#1e293b" },
+    primary: { 100: "#dcfce7", 800: "#166534" },
+  },
+};
+
+const config = {
+  plugins: [
+    postcssDesignTokenUtils(tokens, {
+      utilityClasses: [
+        {
+          id: "color.gray",
+          property: "background-color",
+          prefix: "bg-shade",
+        },
+      ],
+    }),
+  ],
+};
+```
