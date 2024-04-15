@@ -1,3 +1,3 @@
-# design-token-utils
+# postcss-design-token-utils
 
-PostCSS plugin to covert design tokens to CSS custom properties and utility classes.
+PostCSS plugin to convert design tokens to CSS custom properties and utility classes.
