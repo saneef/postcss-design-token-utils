@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "PostCSS plugin to convert design tokens to CSS custom properties and utility classes.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saneef/postcss-design-token-utils.git"
+  },
   "scripts": {
     "test": "ava"
   },
