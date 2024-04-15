@@ -75,7 +75,7 @@ test("Generate viewport variants with colon separated classes", async (t) => {
         responsiveVariants: true,
       },
     ],
-    mediaQueryClassSeparator: ":",
+    classResponsivePrefixSeparator: ":",
   };
   const res = await run(tokens, input, options);
   t.is(
