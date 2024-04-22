@@ -237,6 +237,8 @@ Once built, this is the output CSS file.
 }
 ```
 
+The `property` also supports an array of property values, like `["margin-top", "margin-bottom"]`, to be included within a utility class.
+
 #### Responsive class variants
 
 It is possible to generate responsive modifier class names.
