@@ -35,6 +35,25 @@ test("Generate with prefix", async (t) => {
   );
 });
 
+test("Generate with multiple properties", async (t) => {
+  const tokens = { space: { m: "1rem", l: "2rem" } };
+  const input = `@design-token-utils (utility-classes);`;
+  const options = {
+    utilityClasses: [
+      {
+        id: "space",
+        prefix: "margin-y",
+        property: ["margin-top", "margin-bottom"],
+      },
+    ],
+  };
+  const res = await run(tokens, input, options);
+  t.is(
+    res.css,
+    `.margin-y-m{margin-bottom:var(--space-m);margin-top:var(--space-m)}.margin-y-l{margin-bottom:var(--space-l);margin-top:var(--space-l)}`,
+  );
+});
+
 test("Generate with responsive variants", async (t) => {
   const tokens = { color: { accent: "#ff0" } };
   const input = `@design-token-utils (utility-classes);`;
