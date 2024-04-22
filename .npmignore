@@ -5,3 +5,5 @@
 .gitattributes
 test
 lib/**/*.test.js
+.nyc_output
+coverage
