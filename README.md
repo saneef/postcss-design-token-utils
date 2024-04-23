@@ -313,7 +313,7 @@ In the previous example, if we provide breakpoints and set `responsiveVariants: 
 ```
 
 You can use `classResponsivePrefixSeparator` property (default: `-`) in `options` to change the separator between responsive prefix and class name.
-To generate Tailwind style responsive modifiers, set `mediaQueryClassSeparator: ":"`.
+To generate Tailwind style responsive modifiers, set `classResponsivePrefixSeparator: "\\:"`.
 _Beware if you are using purgecss.
 Class names with some special character are not considered._
 [See note](https://purgecss.com/extractors.html#default-extractor).
