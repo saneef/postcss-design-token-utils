@@ -3,8 +3,8 @@ import cssnano from "cssnano";
 import postcss from "postcss";
 import plugin from "../index.js";
 
-async function run(tokens, input, options) {
-  return postcss([plugin(tokens, options), cssnano]).process(input, {
+async function run(input, options) {
+  return postcss([plugin(options), cssnano]).process(input, {
     from: "test.css",
   });
 }
@@ -15,7 +15,7 @@ test("Generate utility classes", async (t) => {
   const options = {
     utilityClasses: [{ id: "color", property: "color" }],
   };
-  const res = await run(tokens, input, options);
+  const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
     `.color-accent{color:var(--color-accent)}.color-dark{color:var(--color-dark)}`,
@@ -28,7 +28,7 @@ test("Generate with prefix", async (t) => {
   const options = {
     utilityClasses: [{ id: "color", prefix: "text", property: "color" }],
   };
-  const res = await run(tokens, input, options);
+  const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
     `.text-accent{color:var(--color-accent)}.text-dark{color:var(--color-dark)}`,
@@ -47,7 +47,7 @@ test("Generate with multiple properties", async (t) => {
       },
     ],
   };
-  const res = await run(tokens, input, options);
+  const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
     `.margin-y-m{margin-bottom:var(--space-m);margin-top:var(--space-m)}.margin-y-l{margin-bottom:var(--space-l);margin-top:var(--space-l)}`,
@@ -71,7 +71,7 @@ test("Generate with responsive variants", async (t) => {
       },
     ],
   };
-  const res = await run(tokens, input, options);
+  const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
     `.text-accent{color:var(--color-accent)}@media (min-width:320px){.sm-text-accent{color:var(--color-accent)}}@media (min-width:640px){.md-text-accent{color:var(--color-accent)}}`,
@@ -96,7 +96,7 @@ test("Generate viewport variants with colon separated classes", async (t) => {
     ],
     classResponsivePrefixSeparator: ":",
   };
-  const res = await run(tokens, input, options);
+  const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
     `.text-accent{color:var(--color-accent)}@media (min-width:320px){.sm:text-accent{color:var(--color-accent)}}@media (min-width:640px){.md:text-accent{color:var(--color-accent)}}`,
