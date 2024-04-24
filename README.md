@@ -47,13 +47,12 @@ const tokens = {
 
 const config = {
   plugins: [
-    /* ...other plugins... */
-    postcssDesignTokenUtils(
-      tokens, // Tokens
-      {
-        /* pluginOptions */
-      },
-    ),
+    /* ...Other plugins... */
+
+    postcssDesignTokenUtils({
+      tokens,
+      /* Plugin options */
+    }),
   ],
 };
 ```
@@ -116,7 +115,8 @@ const tokens = {
 
 const config = {
   plugins: [
-    postcssDesignTokenUtils(tokens, {
+    postcssDesignTokenUtils({
+      tokens,
       customProperties: [
         { id: "darkThemeColor", prefix: "color", group: "dark" },
       ],
@@ -189,7 +189,8 @@ const tokens = {
 
 const config = {
   plugins: [
-    postcssDesignTokenUtils(tokens, {
+    postcssDesignTokenUtils({
+      tokens,
       utilityClasses: [
         {
           id: "color",
@@ -251,7 +252,8 @@ We need to provide breakpoints and specify which classes need responsive variant
 
 const config = {
   plugins: [
-    postcssDesignTokenUtils(tokens, {
+    postcssDesignTokenUtils({
+      tokens,
       breakpoints: {
         sm: "320px", // 👈 Added break points
         md: "640px",
@@ -335,7 +337,8 @@ const token = {
 
 const config = {
   plugins: [
-    postcssDesignTokenUtils(tokens, {
+    postcssDesignTokenUtils({
+      tokens,
       utilityClasses: [
         {
           id: "color.gray",
