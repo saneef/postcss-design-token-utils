@@ -7,3 +7,4 @@ test
 lib/**/*.test.js
 .nyc_output
 coverage
+*.tgz
