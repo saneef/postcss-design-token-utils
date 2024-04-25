@@ -16,15 +16,25 @@ test("Generate utility classes", async (t) => {
 });
 
 test("Generate with prefix", async (t) => {
-  const tokens = { color: { accent: "#ff0", dark: "#111" } };
+  const tokens = {
+    color: { accent: "#ff0", dark: "#111" },
+    textSize: {
+      "step-0": "1rem",
+      "step-1": "1.333rem",
+      "step-2": "1.776rem",
+    },
+  };
   const input = `@design-token-utils (utility-classes);`;
   const options = {
-    utilityClasses: [{ id: "color", prefix: "text", property: "color" }],
+    utilityClasses: [
+      { id: "color", property: "color", prefix: "text" },
+      { id: "textSize", property: "font-size", prefix: "" },
+    ],
   };
   const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
-    `.text-accent{color:var(--color-accent)}.text-dark{color:var(--color-dark)}`,
+    `.text-accent{color:var(--color-accent)}.text-dark{color:var(--color-dark)}.step-0{font-size:var(--text-size-step-0)}.step-1{font-size:var(--text-size-step-1)}.step-2{font-size:var(--text-size-step-2)}`,
   );
 });
 
