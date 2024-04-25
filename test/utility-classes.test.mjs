@@ -1,13 +1,6 @@
 import test from "ava";
-import cssnano from "cssnano";
-import postcss from "postcss";
-import plugin from "../index.js";
 
-async function run(input, options) {
-  return postcss([plugin(options), cssnano]).process(input, {
-    from: "test.css",
-  });
-}
+import { run } from "./runner.mjs";
 
 test("Generate utility classes", async (t) => {
   const tokens = { color: { accent: "#ff0", dark: "#111" } };
@@ -50,7 +43,7 @@ test("Generate with multiple properties", async (t) => {
   const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
-    `.margin-y-m{margin-bottom:var(--space-m);margin-top:var(--space-m)}.margin-y-l{margin-bottom:var(--space-l);margin-top:var(--space-l)}`,
+    `.margin-y-m{margin-top:var(--space-m);margin-bottom:var(--space-m)}.margin-y-l{margin-top:var(--space-l);margin-bottom:var(--space-l)}`,
   );
 });
 
@@ -74,7 +67,7 @@ test("Generate with responsive variants", async (t) => {
   const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
-    `.text-accent{color:var(--color-accent)}@media (min-width:320px){.sm-text-accent{color:var(--color-accent)}}@media (min-width:640px){.md-text-accent{color:var(--color-accent)}}`,
+    `.text-accent{color:var(--color-accent)}@media (min-width: 320px){.sm-text-accent{color:var(--color-accent)}}@media (min-width: 640px){.md-text-accent{color:var(--color-accent)}}`,
   );
 });
 
@@ -99,6 +92,6 @@ test("Generate viewport variants with colon separated classes", async (t) => {
   const res = await run(input, { tokens, ...options });
   t.is(
     res.css,
-    `.text-accent{color:var(--color-accent)}@media (min-width:320px){.sm:text-accent{color:var(--color-accent)}}@media (min-width:640px){.md:text-accent{color:var(--color-accent)}}`,
+    `.text-accent{color:var(--color-accent)}@media (min-width: 320px){.sm:text-accent{color:var(--color-accent)}}@media (min-width: 640px){.md:text-accent{color:var(--color-accent)}}`,
   );
 });

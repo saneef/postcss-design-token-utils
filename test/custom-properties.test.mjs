@@ -1,13 +1,6 @@
 import test from "ava";
-import cssnano from "cssnano";
-import postcss from "postcss";
-import plugin from "../index.js";
 
-async function run(input, options) {
-  return postcss([plugin(options), cssnano]).process(input, {
-    from: "test.css",
-  });
-}
+import { run } from "./runner.mjs";
 
 test("Skips when applied outside of a rule", async (t) => {
   const tokens = { color: { accent: "#ff0" } };
