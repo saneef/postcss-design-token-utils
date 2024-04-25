@@ -1,6 +1,6 @@
 {
   "name": "postcss-design-token-utils",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "PostCSS plugin to convert design tokens to CSS custom properties and utility classes.",
   "main": "index.js",
   "repository": {
