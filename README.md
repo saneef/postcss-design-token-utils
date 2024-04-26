@@ -2,6 +2,8 @@
 
 PostCSS plugin to convert design tokens to CSS custom properties and utility classes.
 
+[**Try it out in the Playground!**](https://tokens2css.nanools.com)
+
 This plugin is inspired by Andy Bell's [Gorko](https://github.com/Andy-set-studio/gorko), and his latest [utility class generation project](https://github.com/Set-Creative-Studio/cube-boilerplate/) using Tailwind.
 The method of using Tailwind comes with fancy features like just-in-time class generation.
 But, I would rather not depend on Tailwind for one feature of generating classes and utility class.
