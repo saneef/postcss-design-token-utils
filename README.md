@@ -6,10 +6,9 @@ This plugin is inspired by Andy Bell's [Gorko](https://github.com/Andy-set-studi
 The method of using Tailwind comes with fancy features like just-in-time class generation.
 But, I would rather not depend on Tailwind for one feature of generating classes and utility class.
 Not only that, I find the Tailwind configuration (like Andy did) quite scary.
-Who knows if the same configuration works in the next version?
-So, I'm going with slightly low-tech here.
+Who knows if the same configuration will work in the next version?
 
-My motivation is to create a plugin that does one job (actually two) of generating CSS custom properties from design tokens.
+My motivation is to create a plugin that does one job (actually two) of generating CSS custom properties and utility classes from design tokens.
 You can maintain the tokens in which ever formats – JSON, or YAML – you prefer.
 Do turn into an object, before passing the tokens to this plugin.
 
