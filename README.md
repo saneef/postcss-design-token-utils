@@ -316,10 +316,13 @@ In the previous example, if we provide breakpoints and set `responsiveVariants: 
 ```
 
 You can use `responsivePrefixClassSeparator` property (default: `-`) in `options` to change the separator between responsive prefix and class name.
-To generate Tailwind style responsive modifiers, set `responsivePrefixClassSeparator: "\\:"`.
-_Beware if you are using purgecss.
-Class names with some special character are not considered._
-[See note](https://purgecss.com/extractors.html#default-extractor).
+
+You can generate Tailwind style responsive utility classes with `responsivePrefixClassSeparator: "\\:"`.
+
+> [!WARNING]
+> Beware if you are using purgecss.
+> Class names with some special character are not considered, by default.
+> [See note](https://purgecss.com/extractors.html#default-extractor) in purgecss documentation.
 
 ## Nested tokens
 
