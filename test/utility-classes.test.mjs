@@ -97,11 +97,12 @@ test("Generate viewport variants with colon separated classes", async (t) => {
         responsiveVariants: true,
       },
     ],
-    classResponsivePrefixSeparator: ":",
+    responsivePrefixClassSeparator: "\\:",
   };
   const res = await run(input, { tokens, ...options });
+
   t.is(
     res.css,
-    `.text-accent{color:var(--color-accent)}@media (min-width: 320px){.sm:text-accent{color:var(--color-accent)}}@media (min-width: 640px){.md:text-accent{color:var(--color-accent)}}`,
+    `.text-accent{color:var(--color-accent)}@media (min-width: 320px){.sm\\:text-accent{color:var(--color-accent)}}@media (min-width: 640px){.md\\:text-accent{color:var(--color-accent)}}`,
   );
 });
