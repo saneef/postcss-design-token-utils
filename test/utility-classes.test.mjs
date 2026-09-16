@@ -38,6 +38,32 @@ test("Generate with prefix", async (t) => {
   );
 });
 
+test("Generate from nested tokens", async (t) => {
+  const tokens = { color: { accent: { 500: "#ff0" }, dark: { 900: "#111" } } };
+  const input = `@design-token-utils (utility-classes);`;
+  const options = {
+    utilityClasses: [{ id: "color", property: "color" }],
+  };
+  const res = await run(input, { tokens, ...options });
+  t.is(
+    res.css,
+    `.color-accent-500{color:var(--color-accent-500)}.color-dark-900{color:var(--color-dark-900)}`,
+  );
+});
+
+test("Generate from nested tokens with prefix", async (t) => {
+  const tokens = { color: { accent: { 500: "#ff0" }, dark: { 900: "#111" } } };
+  const input = `@design-token-utils (utility-classes);`;
+  const options = {
+    utilityClasses: [{ id: "color", property: "color", prefix: "text" }],
+  };
+  const res = await run(input, { tokens, ...options });
+  t.is(
+    res.css,
+    `.text-accent-500{color:var(--color-accent-500)}.text-dark-900{color:var(--color-dark-900)}`,
+  );
+});
+
 test("Generate with multiple properties", async (t) => {
   const tokens = { space: { m: "1rem", l: "2rem" } };
   const input = `@design-token-utils (utility-classes);`;
