@@ -65,7 +65,7 @@ test("Generates ungrouped properties when no groups specified", async (t) => {
   const input = `:root { @design-token-utils (custom-properties); }`;
   const res = await run(input, {
     tokens,
-    customProperties: [{ id: "color" }, { id: "fontFamily", group: "font" }],
+    customProperties: [{ id: "fontFamily", group: "font" }],
   });
   t.is(res.css, ":root{--color-accent:#ff0}");
 });
@@ -118,15 +118,38 @@ test("Generates custom properties from nested tokens", async (t) => {
 
 test("Generates custom properties by group from nested tokens", async (t) => {
   const tokens = {
-    color: {
+    neutral: {
+      white: "white",
       gray: { 100: "#f1f5f9", 800: "#1e293b" },
-      primary: { 100: "#dcfce7", 800: "#166534" },
     },
   };
-  const input = `:root { @design-token-utils (custom-properties: shades); }`;
+  const input = `:root { @design-token-utils (custom-properties: neutrals); }`;
   const res = await run(input, {
     tokens,
-    customProperties: [{ id: "color.gray", group: "shades" }],
+    customProperties: [{ id: "neutral", group: "neutrals" }],
   });
-  t.is(res.css, ":root{--color-gray-100:#f1f5f9;--color-gray-800:#1e293b}");
+  t.is(
+    res.css,
+    ":root{--neutral-white:white;--neutral-gray-100:#f1f5f9;--neutral-gray-800:#1e293b}",
+  );
+});
+
+test("Generates prefixed custom properties by group from nested tokens", async (t) => {
+  const tokens = {
+    neutral: {
+      white: "white",
+      gray: { 100: "#f1f5f9", 800: "#1e293b" },
+    },
+  };
+  const input = `:root { @design-token-utils (custom-properties: neutrals); }`;
+  const res = await run(input, {
+    tokens,
+    customProperties: [
+      { id: "neutral", prefix: "color-neutral", group: "neutrals" },
+    ],
+  });
+  t.is(
+    res.css,
+    ":root{--color-neutral-white:white;--color-neutral-gray-100:#f1f5f9;--color-neutral-gray-800:#1e293b}",
+  );
 });
